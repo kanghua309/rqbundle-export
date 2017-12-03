@@ -1,0 +1,4 @@
+
+rqalpha update_bundle
+rqalpha run -f ./export_bundle_mock_strategy.py -d ~/.rqalpha/bundle/ -s `date +%Y-%m-%d`-e `date +%Y-%m-%d` --account stock 100000
+#rqalpha run -f ./export_bundle_mock_strategy.py -d ~/.rqalpha/bundle/ -s `date -d "-2 day" +%Y-%m-%d` -e `date -d "-2 day" +%Y-%m-%d` --account stock 100000
