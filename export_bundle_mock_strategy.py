@@ -5,7 +5,7 @@ from datetime import datetime as dt
 import datetime
 from rqalpha.api import *
 
-MAX_HISTORY_DAY=10000
+MAX_HISTORY_DAY=100000
 
 def _save(stock,stockdf,conn):
     try:
@@ -14,9 +14,6 @@ def _save(stock,stockdf,conn):
         stockdf[['open', 'high', 'close', 'low', 'volume']].to_sql(stock, conn, if_exists='append')
     except Exception, arg:
         print "exceptions:", stock, arg
-
-
-
 
 
 def init(context):
@@ -36,11 +33,12 @@ def handle_bar(context, bar_dict):
             x=  history_bars(s, 10000, '1d')
             #print type(x),np.shape(x)
             df = pd.DataFrame(x)
-            df['datetime'] = df['datetime'].map(lambda x: pd.Timestamp(str(x)))
+            #df['datetime'] = df['datetime'].map(lambda x: pd.Timestamp(str(x)))
             #df['datetime'] = df['datetime'].astype('datetime64[ns]')
-            y = df.set_index(['datetime'])
-            y.index.rename('date',True)
-            _save(s[:-5],y,conn)
+            df['datetime'] = df['datetime'].astype('str') #MUSt
+            df = df.set_index(['datetime'])
+            df.index.rename('date',True)
+            _save(s[:-5],df,conn)
             cnt += 1
             # if cnt == 10:
             #    break
