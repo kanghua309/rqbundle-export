@@ -12,7 +12,7 @@ def _save(stock,stockdf,conn):
         #print "save ----- :", stock,stockdf.head(10)
         stockdf = stockdf.sort_index(ascending=True)
         stockdf[['open', 'high', 'close', 'low', 'volume']].to_sql(stock, conn, if_exists='append')
-    except Exception, arg:
+    except Exception as arg:
         print "exceptions:", stock, arg
 
 
